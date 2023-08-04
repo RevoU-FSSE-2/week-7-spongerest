@@ -1,12 +1,13 @@
-var produkNama = document.getElementById("produkName");
-var produkHarga = document.getElementById("harga");
-var produkMarkup = document.getElementById("markup");
-var produkStok = document.getElementById("stok");
-var produkSelect = document.getElementById("slct");
-var produkTambah = document.getElementById("tambah-produk");
-var produkList = document.getElementById("list-produk");
-var produkCheck = document.getElementById("flexCheckDefault");
-var listProduk = [];
+"use strict";
+const produkNama = document.getElementById("produkName");
+const produkHarga = document.getElementById("harga");
+const produkMarkup = document.getElementById("markup");
+const produkStok = document.getElementById("stok");
+const produkSelect = document.getElementById("slct");
+const produkTambah = document.getElementById("tambah-produk");
+const produkList = document.getElementById("list-produk");
+const produkCheck = document.getElementById("flexCheckDefault");
+const listProduk = [];
 function displayProduk() {
     // produkList.innerHTML = '';
     // listProduk.forEach((data, index) => {
@@ -18,20 +19,32 @@ function displayProduk() {
     //     produkList.appendChild(li);
     // });
     produkList.innerHTML = '';
-    listProduk.forEach(function (data) {
-        var tr = document.createElement('tr');
+    listProduk.forEach((data) => {
+        const tr = document.createElement('tr');
         tr.innerHTML =
-            "\n    <th class=\"checkbox\">\n        <div class=\"form-check\"> \n        <input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckDefault\" onclick=\"deleteSelect\">\n        <label class=\"form-check-label\" for=\"flexCheckDefault\"></label>\n        </div>\n    </th>\n    <td>".concat(data.name, "</td>\n    <td>").concat(data.value, "</td>\n    <td>").concat(data.value2, "</td>\n    <td>").concat(data.category, "</td>\n    <button class=\"btn-delete btn-primary\" type=\"submit\">Delete</button>\n    ");
+            `
+    <th class="checkbox">
+        <div class="form-check"> 
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick="deleteSelect">
+        <label class="form-check-label" for="flexCheckDefault"></label>
+        </div>
+    </th>
+    <td>${data.name}</td>
+    <td>${data.value}</td>
+    <td>${data.value2}</td>
+    <td>${data.category}</td>
+    <button class="btn-delete btn-primary" type="submit">Delete</button>
+    `;
         produkList.appendChild(tr);
     });
 }
-produkTambah.addEventListener('click', function () {
-    var namaProduk = String(produkNama.value);
-    var hargaJualProduk = Number((produkHarga.valueAsNumber * 100) / (100 - produkMarkup.valueAsNumber));
-    var stokProduk = Number(produkStok.value);
-    var categoryProduk = String(produkSelect.value);
+produkTambah.addEventListener('click', () => {
+    const namaProduk = String(produkNama.value);
+    const hargaJualProduk = Number((produkHarga.valueAsNumber * 100) / (100 - produkMarkup.valueAsNumber));
+    const stokProduk = Number(produkStok.value);
+    const categoryProduk = String(produkSelect.value);
     if (namaProduk && hargaJualProduk && stokProduk) {
-        var newProduk = {
+        const newProduk = {
             check: produkCheck,
             name: namaProduk,
             value: hargaJualProduk,
@@ -50,12 +63,12 @@ produkTambah.addEventListener('click', function () {
     }
 });
 document.addEventListener('click', function (e) {
-    var isChecked = e.target.classList.contains('btn-delete');
+    const isChecked = e.target.classList.contains('btn-delete');
     if (isChecked == true) {
-        var btnDelete = e.target;
-        var isConfirm = confirm('Are You Sure?');
+        const btnDelete = e.target;
+        const isConfirm = confirm('Are You Sure?');
         if (isConfirm) {
-            var parentTR = btnDelete.closest('tr');
+            const parentTR = btnDelete.closest('tr');
             if (parentTR) {
                 parentTR.remove();
             }
